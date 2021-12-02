@@ -30,3 +30,8 @@ input {
   margin: 10px;
   text-align: center;
 }
+
+.pokemon img {
+  width: 96px;
+  height: 96px;
+}
