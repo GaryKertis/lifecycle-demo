@@ -1,69 +1,60 @@
 import React from "react";
 import axios from "axios";
 import Pokemon from "./Pokemon";
+import PokeSelector from "./PokeSelector";
 
-const myLogger = (message) => {
-  console.log(`%c${message}`, "color: blue");
-};
 class App extends React.Component {
   constructor() {
     super();
-
     this.state = {
-      pokemonName: "eevee",
-      imgUrl: "",
+      pokemon: {},
+      selected: "bulbasaur",
     };
 
-    myLogger("constructor");
+    this.handleSelect = this.handleSelect.bind(this);
+    this.addPokemon = this.addPokemon.bind(this);
+    this.removePokemon = this.removePokemon.bind(this);
   }
 
-  async componentDidMount() {
-    myLogger("componentDidMount");
+  handleSelect(event) {
+    const selected = event.target.value;
+    this.setState({ selected });
+  }
+
+  async addPokemon() {
+    const name = this.state.selected;
     const { data } = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${this.state.pokemonName}`
+      `https://pokeapi.co/api/v2/pokemon/${name}`
     );
     const imgUrl = data.sprites.front_default;
-    this.setState({ imgUrl });
+    const pokemon = { ...this.state.pokemon };
+    pokemon[name] = imgUrl;
+    this.setState({ pokemon });
   }
 
-  componentDidUpdate() {
-    myLogger("componentDidUpdate");
-  }
-
-  parentCallback(someData) {
-    console.log("This is the parten callback", someData);
-  }
-
-  async handleClick(pokemon) {
-    const { data } = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${pokemon}`
-    );
-    const imgUrl = data.sprites.front_default;
-    this.setState({ pokemonName: pokemon, imgUrl });
-  }
-
-  clear() {
-    this.setState({ pokemonName: undefined });
+  removePokemon(id) {
+    const pokemon = { ...this.state.pokemon };
+    delete pokemon[id];
+    this.setState({ pokemon });
   }
 
   render() {
-    myLogger("render");
+    const allPokemon = Object.keys(this.state.pokemon).map((name) => {
+      return (
+        <Pokemon
+          key={name}
+          name={name}
+          imgUrl={this.state.pokemon[name]}
+          remove={this.removePokemon}
+        />
+      );
+    });
+
     return (
       <div>
-        <h1>{this.state.pokemonName}</h1>
-        <button onClick={() => this.handleClick("pikachu")}>Pikachu</button>
-        <button onClick={() => this.handleClick("meowth")}>Meowth</button>
-        <button onClick={() => this.clear()}>Clear</button>
-
-        {this.state.pokemonName ? (
-          <Pokemon
-            garyCallbackExample={this.parentCallback}
-            foo={{ text: "bar" }}
-            imgUrl={this.state.imgUrl}
-          />
-        ) : (
-          <div></div>
-        )}
+        <PokeSelector onChange={this.handleSelect} />
+        <button onClick={this.addPokemon}>Add to List</button>
+        <div className="poketainer">{allPokemon}</div>
       </div>
     );
   }
