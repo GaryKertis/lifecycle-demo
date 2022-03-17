@@ -54,10 +54,12 @@ class App extends React.Component {
         <button onClick={() => this.handleClick("pikachu")}>Pikachu</button>
         <button onClick={() => this.handleClick("meowth")}>Meowth</button>
         <button onClick={() => this.clear()}>Clear</button>
-        <Pokemon
-          callback={(data) => this.parentCallback(data)}
-          imgUrl={this.state.imgUrl}
-        />
+        {this.state.pokemonName && (
+          <Pokemon
+            callback={(data) => this.parentCallback(data)}
+            imgUrl={this.state.imgUrl}
+          />
+        )}
       </div>
     );
   }
