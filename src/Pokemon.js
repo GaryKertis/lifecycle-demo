@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 
 const myLogger = (message) => {
@@ -25,16 +26,17 @@ class Pokemon extends React.Component {
   handleClick() {
     myLogger("User clicked button!");
     this.setState({ newValue: "newValue" });
-    this.props.garyCallbackExample("I am a function");
+    this.props.callback("I am a function");
   }
 
   render() {
     myLogger("render");
     return (
       <div>
-        <p>{this.props.foo.text}</p>
         <img src={this.props.imgUrl} />
-        <button onClick={() => this.handleClick()}>Some Button</button>
+        <div>
+          <button onClick={() => this.handleClick()}>Call Callback</button>
+        </div>
       </div>
     );
   }

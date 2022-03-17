@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   parentCallback(someData) {
-    console.log("This is the parten callback", someData);
+    console.log("This is the parent callback", someData);
   }
 
   async handleClick(pokemon) {
@@ -54,16 +54,10 @@ class App extends React.Component {
         <button onClick={() => this.handleClick("pikachu")}>Pikachu</button>
         <button onClick={() => this.handleClick("meowth")}>Meowth</button>
         <button onClick={() => this.clear()}>Clear</button>
-
-        {this.state.pokemonName ? (
-          <Pokemon
-            garyCallbackExample={this.parentCallback}
-            foo={{ text: "bar" }}
-            imgUrl={this.state.imgUrl}
-          />
-        ) : (
-          <div></div>
-        )}
+        <Pokemon
+          callback={(data) => this.parentCallback(data)}
+          imgUrl={this.state.imgUrl}
+        />
       </div>
     );
   }
