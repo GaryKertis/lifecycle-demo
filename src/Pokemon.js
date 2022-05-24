@@ -1,36 +1,34 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from "react";
+import React from 'react';
+import { myLogger } from './util';
 
-const myLogger = (message) => {
-  console.log(`%c${message}`, "color: red");
-};
 class Pokemon extends React.Component {
   constructor() {
     super();
-
-    myLogger("constructor");
+    this.logger = myLogger.bind(this);
+    this.logger('constructor', 'red');
   }
 
   componentDidMount() {
-    myLogger("componentDidMount");
+    this.logger('componentDidMount', 'red');
   }
 
   componentDidUpdate() {
-    myLogger("componentDidUpdate");
+    this.logger('componentDidUpdate', 'red');
   }
 
   componentWillUnmount() {
-    myLogger("componentWillUnmount");
+    this.logger('componentWillUnmount', 'red');
   }
 
   handleClick() {
-    myLogger("User clicked button!");
-    this.setState({ newValue: "newValue" });
-    this.props.callback("I am a function");
+    this.logger('User clicked button!');
+    this.setState({ newValue: 'newValue' });
+    this.props.callback('I am a function');
   }
 
   render() {
-    myLogger("render");
+    this.logger('render');
     return (
       <div>
         <img src={this.props.imgUrl} />
