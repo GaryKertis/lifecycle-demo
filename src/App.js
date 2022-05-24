@@ -7,25 +7,21 @@ class App extends React.Component {
     super();
 
     this.state = {
-      pokemonName: 'eevee',
-      imgUrl: '',
+      pokemonName: 'bulbasaur',
+      imgUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
     };
     this.logger = myLogger.bind(this);
-    this.logger('constructor');
+    // this.logger('constructor');
   }
 
-  async componentDidMount() {
-    this.logger('componentDidMount');
-    this.setState({ imgUrl: await fetchPokemonImage(this.state.pokemonName) });
-  }
+  // async componentDidMount() {
+  //   this.logger('componentDidMount');
+  //   this.setState({ imgUrl: await fetchPokemonImage(this.state.pokemonName) });
+  // }
 
-  componentDidUpdate() {
-    this.logger('componentDidUpdate');
-  }
-
-  parentCallback(someData) {
-    console.log('This is the parent callback', someData);
-  }
+  // componentDidUpdate() {
+  //   this.logger('componentDidUpdate');
+  // }
 
   async handleClick(pokemon) {
     this.setState({ pokemonName: pokemon, imgUrl: await fetchPokemonImage(pokemon) });
@@ -36,16 +32,16 @@ class App extends React.Component {
   }
 
   render() {
-    this.logger('render');
+    // this.logger('render');
+    const { pokemonName, imgUrl } = this.state;
+
     return (
       <div>
         <h1>{this.state.pokemonName}</h1>
         <button onClick={() => this.handleClick('pikachu')}>Pikachu</button>
         <button onClick={() => this.handleClick('meowth')}>Meowth</button>
         <button onClick={() => this.clear()}>Clear</button>
-        {this.state.pokemonName && (
-          <Pokemon callback={(data) => this.parentCallback(data)} imgUrl={this.state.imgUrl} />
-        )}
+        {pokemonName && <Pokemon imgUrl={imgUrl} />}
       </div>
     );
   }
