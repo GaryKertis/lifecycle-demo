@@ -5,18 +5,17 @@ import { fetchPokemonImage, myLogger } from './util';
 class App extends React.Component {
   constructor() {
     super();
-
+    // this.logger = myLogger.bind(this);
+    // this.logger('constructor');
     this.state = {
       pokemonName: 'bulbasaur',
-      imgUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+      imgUrl: '',
     };
-    this.logger = myLogger.bind(this);
-    // this.logger('constructor');
   }
 
   // async componentDidMount() {
-  //   this.logger('componentDidMount');
-  //   this.setState({ imgUrl: await fetchPokemonImage(this.state.pokemonName) });
+  // this.logger('componentDidMount');
+  // this.setState({ imgUrl: await fetchPokemonImage(this.state.pokemonName) });
   // }
 
   // componentDidUpdate() {
