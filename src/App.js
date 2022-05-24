@@ -5,24 +5,28 @@ import { fetchPokemonImage, myLogger } from './util';
 class App extends React.Component {
   constructor() {
     super();
-    // this.logger = myLogger.bind(this);
-    // this.logger('constructor');
+    this.logger = myLogger.bind(this);
+    this.logger('constructor');
     this.state = {
-      pokemonName: 'bulbasaur',
+      pokemonName: '',
       imgUrl: '',
     };
   }
 
-  // async componentDidMount() {
-  // this.logger('componentDidMount');
-  // this.setState({ imgUrl: await fetchPokemonImage(this.state.pokemonName) });
-  // }
+  async componentDidMount() {
+    this.logger('componentDidMount');
+    this.setState({
+      pokemonName: 'ekans',
+      imgUrl: await fetchPokemonImage('ekans'),
+    });
+  }
 
-  // componentDidUpdate() {
-  //   this.logger('componentDidUpdate');
-  // }
+  async componentDidUpdate(prevProps, prevState) {
+    this.logger('componentDidUpdate');
+  }
 
   async handleClick(pokemon) {
+    this.setState({ pokemonName: '' });
     this.setState({ pokemonName: pokemon, imgUrl: await fetchPokemonImage(pokemon) });
   }
 
@@ -31,7 +35,7 @@ class App extends React.Component {
   }
 
   render() {
-    // this.logger('render');
+    this.logger('render');
     const { pokemonName, imgUrl } = this.state;
 
     return (
@@ -40,7 +44,7 @@ class App extends React.Component {
         <button onClick={() => this.handleClick('pikachu')}>Pikachu</button>
         <button onClick={() => this.handleClick('meowth')}>Meowth</button>
         <button onClick={() => this.clear()}>Clear</button>
-        {pokemonName && <Pokemon imgUrl={imgUrl} />}
+        {pokemonName ? <Pokemon imgUrl={imgUrl} /> : <div>Loading...</div>}
       </div>
     );
   }

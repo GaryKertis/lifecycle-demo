@@ -6,28 +6,23 @@ class Pokemon extends React.Component {
   constructor() {
     super();
     this.logger = myLogger.bind(this);
-    // this.logger('constructor', 'red');
+    this.logger('constructor', 'green');
   }
 
-  // componentDidMount() {
-  //   this.logger('componentDidMount', 'red');
-  // }
+  componentDidMount() {
+    this.logger('componentDidMount', 'green');
+  }
 
-  // componentDidUpdate() {
-  //   this.logger('componentDidUpdate', 'red');
-  // }
+  componentDidUpdate() {
+    this.logger('componentDidUpdate', 'green');
+  }
 
-  // componentWillUnmount() {
-  //   this.logger('componentWillUnmount', 'red');
-  // }
-
-  handleClick() {
-    // this.logger('User clicked button!');
-    this.setState({ newValue: 'newValue' });
+  componentWillUnmount() {
+    this.logger('componentWillUnmount', 'green');
   }
 
   render() {
-    // this.logger('render');
+    this.logger('render', 'green');
     return (
       <div>
         <img src={this.props.imgUrl} />
